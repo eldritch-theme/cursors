@@ -1,0 +1,8 @@
+/dist/
+/pngs/
+/hl/
+/svgs/
+/releases/
+*.zip
+__pycache__/
+/.direnv
