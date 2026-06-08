@@ -1,6 +1,11 @@
 {
   description = "Cursor theme factory — generate cursor themes from any color palette";
 
+  nixConfig = {
+    extra-substituters = ["https://neonvoidx.cachix.org"];
+    extra-trusted-public-keys = ["neonvoidx.cachix.org-1:nHFGhvzWqULuNWFbuPwTP0eUW+k7utl0chxXhUJhU1Y="];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";

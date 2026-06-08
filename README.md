@@ -69,9 +69,9 @@ nix build github:eldritch-theme/cursors#great-old-green
 }
 ```
 
-#### Garnix Cache
+#### Cachix Cache
 
-Feel free to use my garnix cache so you dont have to build from source.
+Feel free to use my cachix cache so you don't have to build from source.
 
 ```nix
           trusted-substituters = [
