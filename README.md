@@ -1,8 +1,18 @@
-# Eldritch Cursors
+<p align="center">
+  <img src="https://raw.github.com/eldritch-theme/eldritch/master/assets/logo/logo.png" width=150>
+</p>
+<p>
+  Eldritch is a community-driven dark theme inspired by Lovecraftian horror. With tones from the dark abyss and an emphasis on green and blue, it caters to those who appreciate the darker side of life.
+</p>
 
-A community-driven cursor theme based on [Volantes Cursors](https://github.com/varlesh/volantes-cursors), themed for the [Eldritch](https://github.com/eldritch-theme/eldritch) color palette.
+Main Theme repo can be found [here](https://github.com/eldritch-theme/eldritch)
+
+### Showcase
+<!-- Your screenshots should go here -->
 
 ## Variants
+
+<img src=".github/assets/cursors.png" alt="Eldritch cursors"/>
 
 | Accent | Nix attribute | Color |
 |---|---|---|
@@ -24,9 +34,10 @@ A community-driven cursor theme based on [Volantes Cursors](https://github.com/v
 2. Extract the zip to `$HOME/.local/share/icons` or `$HOME/.icons`.
 3. Select the theme in your desktop environment settings.
 
-### Nix
+### Nix (TBD, need to submit to nixpkgs)
 
 ```nix
+# TBD, not submitted to nixpkgs yet, use overlay or input for now
 # All variants
 pkgs.eldritch-cursors
 
@@ -34,20 +45,43 @@ pkgs.eldritch-cursors
 pkgs.eldritch-cursors.great-old-green
 ```
 
-Or build directly from the flake:
+Build directly from the flake:
 
 ```bash
 nix build github:eldritch-theme/cursors#great-old-green
+
 ```
 
-### NixOS module
+#### NixOS module
 
 ```nix
 { pkgs, ... }: {
-  environment.systemPackages = [ pkgs.eldritch-cursors ];
+  environment.systemPackages = [ pkgs.eldritch-cursors ]; # (TBD when submitted to nixpkgs, for now use overlay or input)
 
   environment.variables.XCURSOR_THEME = "Eldritch Cthulhu Great Old Green";
+  #or nixos.stylix (if using stylix)->
+  #   cursor = {
+  #   name = "Eldritch Cthulhu Great Old Green";
+  #   package = inputs.eldritch-cursors.packages.${pkgs.system}.great-old-green;
+  #   size = 32;
+  # };
+
 }
+```
+
+#### Garnix Cache
+
+Feel free to use my garnix cache so you dont have to build from source.
+
+```nix
+          trusted-substituters = [
+            ...
+            "https://neonvoidx.cachix.org"
+          ];
+          trusted-public-keys = [
+            "neonvoidx.cachix.org-1:nHFGhvzWqULuNWFbuPwTP0eUW+k7utl0chxXhUJhU1Y="
+          ];
+
 ```
 
 ### Manual build
@@ -63,8 +97,6 @@ cd cursors
 
 # Build specific accent
 ./build -p palettes/eldritch-cthulhu.json -a 'great-old-green'
-
-# Built themes go to dist/
 ```
 
 Or with `just`:
@@ -78,7 +110,6 @@ just single great-old-green  # single accent
 
 - [varlesh](https://github.com/varlesh/volantes-cursors) for the original Volantes Cursors.
 - [catppuccin/cursors](https://github.com/catppuccin/cursors) for the approach this project is based on.
-- [eldritch-theme](https://github.com/eldritch-theme/eldritch) for the color palette.
 
 ## License
 
