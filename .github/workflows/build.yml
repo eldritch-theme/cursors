@@ -49,16 +49,31 @@ jobs:
           path: releases/*.zip
           if-no-files-found: error
 
-      - name: Upload to GitHub Release
+      - name: Determine next version
+        id: version
+        if: github.event_name != 'pull_request'
+        run: |
+          git fetch --tags --force
+          latest_tag=$(git tag --list 'v*.*.*' --sort=-v:refname | head -n1)
+          if [ -z "$latest_tag" ]; then
+            echo "version=v0.1.0" >> "$GITHUB_OUTPUT"
+          else
+            major=$(echo "$latest_tag" | cut -d. -f1 | tr -d v)
+            minor=$(echo "$latest_tag" | cut -d. -f2)
+            patch=$(echo "$latest_tag" | cut -d. -f3)
+            echo "version=v$major.$minor.$((patch + 1))" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create and upload GitHub Release
         if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          TAG="nightly"
+          TAG="${{ steps.version.outputs.version }}"
           [[ "${{ github.event_name }}" == "release" ]] && TAG="${{ github.event.release.tag_name }}"
 
-          gh release create "$TAG" --title "Continuous build ($(date +%Y-%m-%d))" --notes "Latest cursors built from \`master\`." --prerelease 2>/dev/null || true
+          gh release create "$TAG" --title "Release $TAG" --notes "Cursors built from \`master\`."
 
           for zip in releases/*.zip; do
             gh release upload "$TAG" "$zip" --clobber
