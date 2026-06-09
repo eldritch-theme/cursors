@@ -1,4 +1,4 @@
-name: Build and cache cursors
+name: Build, cache, and publish cursors
 
 on:
   push:
@@ -49,23 +49,17 @@ jobs:
           path: releases/*.zip
           if-no-files-found: error
 
-  release:
-    if: github.event_name == 'release' && github.event.action == 'published'
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: cursors
-          path: cursors
-
-      - name: Upload release assets
+      - name: Upload to GitHub Release
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          for zip in cursors/*.zip; do
-            gh release upload "${{ github.event.release.tag_name }}" "$zip"
+          TAG="nightly"
+          [[ "${{ github.event_name }}" == "release" ]] && TAG="${{ github.event.release.tag_name }}"
+
+          gh release create "$TAG" --title "Continuous build ($(date +%Y-%m-%d))" --notes "Latest cursors built from \`master\`." --prerelease 2>/dev/null || true
+
+          for zip in releases/*.zip; do
+            gh release upload "$TAG" "$zip" --clobber
           done
