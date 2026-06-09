@@ -19,10 +19,7 @@ from pathlib import Path
 def parse_hotspot(svg_path: Path) -> tuple[float, float] | None:
     """Extract hotspot (x, y) from SVG's hidden #hotspot path."""
     text = svg_path.read_text()
-    m = re.search(r'id="hotspot"[^>]*d="m\s*([0-9.]+)\s*[,]\s*([0-9.]+)', text, re.IGNORECASE)
-    if m:
-        return (float(m.group(1)), float(m.group(2)))
-    m = re.search(r'id="hotspot"[^>]*d="m\s+(-?[0-9.]+)\s+(-?[0-9.]+)', text, re.IGNORECASE)
+    m = re.search(r'id="hotspot"[^>]*d="m\s+(-?[0-9.]+)[, ]\s*(-?[0-9.]+)', text, re.IGNORECASE)
     if m:
         return (float(m.group(1)), float(m.group(2)))
     return None

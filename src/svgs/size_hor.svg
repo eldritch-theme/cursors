@@ -9,7 +9,7 @@
     <path d="M3 15.504 10 20c-.888-.997-2.001-2.693-2-4.496S9.107 11.998 10 11zM9 16h13v-1H9zm12 4 7-4.496L21 11c.893.998 1.999 2.7 2 4.504S21.888 19.003 21 20" style="opacity:1;fill:#FF0000;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"/>
     <path
     id="hotspot"
-    d="m 16,15 h -1 v 1 h 1 z"
+    d="m 16,16 h 1 v 1 h -1 z"
     display="none"
     fill="#333333"
     stroke-width="1.18965" />

@@ -10,8 +10,8 @@
     <path d="M10 13v1h7v-1z" style="opacity:1;fill:#00FF00;fill-opacity:1;stroke:none;stroke-width:2.42857146;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"/>
     <path
     id="hotspot"
-    d="m 13,13 h 1 v 1 h -1 z"
-    display="none"
-    fill="#333333"
-    stroke-width="1.18965" />
+     d="m 13,13 h 1 v 1 h -1 z"
+     display="none"
+     fill="#333333"
+     stroke-width="1.18965" />
 </svg>

@@ -11,7 +11,7 @@ from pathlib import Path
 HOTSPOT_DISPLACE = 1
 
 HOTSPOT_RE = re.compile(
-    r'id=["\']hotspot["\'][^>]*d=["\']m\s+(-?[0-9.]+)\s+[, ]\s*(-?[0-9.]+)',
+    r'id=["\']hotspot["\'][^>]*d=["\']m\s+(-?[0-9.]+)[, ]\s*(-?[0-9.]+)',
     re.IGNORECASE,
 )
 
