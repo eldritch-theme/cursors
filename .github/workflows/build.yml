@@ -32,13 +32,7 @@ jobs:
 
       - name: Build all cursor variants
         run: |
-          nix build ".#default" \
-            ".#great-old-green" ".#watery-tomb-blue" \
-            ".#pustule-pink" ".#lovecraft-purple" \
-            ".#rlyeh-red" ".#dreaming-orange" \
-            ".#gold-of-yuggoth" ".#sunken-depths" \
-            ".#lighthouse-white" \
-            --print-build-logs
+          nix build ".#default" --print-build-logs
 
       - name: Create per-variant zip archives
         run: |
@@ -60,6 +54,8 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: cursors
@@ -68,6 +64,7 @@ jobs:
       - name: Upload release assets
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           for zip in cursors/*.zip; do
             gh release upload "${{ github.event.release.tag_name }}" "$zip"
